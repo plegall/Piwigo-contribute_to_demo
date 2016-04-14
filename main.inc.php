@@ -31,7 +31,7 @@ function ctd_init()
 
   if (!isset($conf['ctd_demo_url']))
   {
-    $conf['ctd_demo_url'] = 'http://localhost/pwgdemo';
+    $conf['ctd_demo_url'] = 'http://piwigo.org/demo';
   }
 }
 
