@@ -19,6 +19,7 @@ jQuery().ready(function() {
         var data = jQuery.parseJSON(data);
         if (data.stat == 'ok') {
           console.log("submission succes, uuid="+data.result.uuid);
+          jQuery(".contrib").data("uuid", data.result.uuid);
 
           // sub AJAX request, this time we call the Piwigo itself, not the demo
           jQuery.ajax({
@@ -57,4 +58,14 @@ jQuery().ready(function() {
 
     e.preventDefault();
   });
+
+  jQuery(".ctd_see a").click(function() {
+    var base_url = jQuery(".contrib").data("demo_url");
+    var uuid = jQuery(".contrib").data("uuid");
+
+    var url_in_demo = base_url+"/index.php?/contrib/"+uuid;
+
+    jQuery(this).attr("href", url_in_demo);
+  });
+
 });
