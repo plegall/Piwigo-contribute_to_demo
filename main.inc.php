@@ -59,6 +59,7 @@ SELECT
 
     $template->assign(
       array(
+        'CTD_GALLERY_TITLE'  => $conf['gallery_title'],
         'CTD_DEMO_URL' => $conf['ctd_demo_url'],
         'CTD_ID' => $_GET['image_id'],
         'CTD_FILE' => $image['file'],

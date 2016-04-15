@@ -11,6 +11,7 @@ jQuery().ready(function() {
       data: {
         file : jQuery(".contrib").data('file'),
         name : jQuery(".contrib").data('name'),
+        gallery_title : jQuery(".contrib").data('gallery_title'),
         piwigo_url : jQuery(".contrib").data('url'),
         piwigo_relative_path : jQuery(".contrib").data('path'),
         piwigo_image_id : image_id,

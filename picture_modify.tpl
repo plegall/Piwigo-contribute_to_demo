@@ -11,6 +11,7 @@
 
 {strip}
 <li class="contrib"
+  data-gallery_title="{$CTD_GALLERY_TITLE|escape:html}"
   data-demo_url="{$CTD_DEMO_URL}"
   data-id="{$CTD_ID}"
   data-file="{$CTD_FILE|escape:html}"
