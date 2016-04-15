@@ -69,4 +69,57 @@ jQuery().ready(function() {
     jQuery(this).attr("href", url_in_demo);
   });
 
+  jQuery(".ctd_remove a").click(function(e) {
+    var $loading = jQuery(".contrib .loading");
+    $loading.show();
+
+    jQuery.ajax({
+      url: jQuery(".contrib").data('demo_url')+"/ws.php?format=json&method=contrib.photo.remove",
+      type:"POST",
+      data: {
+        uuid : jQuery(".contrib").data('uuid'),
+      },
+      success:function(data) {
+        var data = jQuery.parseJSON(data);
+        if (data.stat == 'ok') {
+          console.log("removal success, uuid="+data.result.uuid);
+          jQuery(".contrib").data("uuid", null);
+
+          // sub AJAX request, this time we call the Piwigo itself, not the demo
+          jQuery.ajax({
+            url: "ws.php?format=json&method=contrib.photo.removed",
+            type:"POST",
+            data: {
+              uuid : data.result.uuid,
+            },
+            success:function(data) {
+              var data = jQuery.parseJSON(data);
+              if (data.stat == 'ok') {
+                console.log("removal registered");
+                $loading.hide();
+                jQuery(".ctd_submit").show();
+                jQuery(".ctd_remove").hide();
+                jQuery(".ctd_see").hide();
+              }
+              else {
+                console.log("contribution removal failed");
+              }
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrows) {
+              alert("error calling local removal");
+            }
+          });
+        }
+        else {
+          console.log("not removed");
+        }
+      },
+      error:function(XMLHttpRequest, textStatus, errorThrows) {
+        alert("error calling Piwigo demo");
+      }
+    });
+
+    e.preventDefault();
+  });
+
 });

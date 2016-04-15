@@ -65,6 +65,43 @@ SELECT
   return true;
 }
 
+function ctd_ws_photo_removed($params, &$service)
+{
+  // register a new contribution
+  global $conf;
+
+  // check the uuid
+  if (!preg_match(CTD_UUID_PATTERN, $params['uuid']))
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid uuid');
+  }
+
+  // has the photo already been "contributed"?
+  $query = '
+SELECT
+    *
+  FROM '.CTD_CONTRIB_TABLE.'
+  WHERE contrib_uuid = \''.$params['uuid'].'\'
+;';
+  $contribs = query2array($query);
+
+  if (count($contribs) == 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'unknown uuid');
+  }
+
+  $contrib = $contribs[0];
+
+  $query = '
+DELETE
+  FROM '.CTD_CONTRIB_TABLE.'
+  WHERE image_idx = '.$contrib['image_idx'].'
+;';
+  pwg_query($query);
+
+  return true;
+}
+
 function ctd_ws_photo_validated($params, &$service)
 {
   // register a new contribution

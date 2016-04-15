@@ -118,8 +118,17 @@ function ctd_ws_add_methods($arr)
       'image_id' => array('type'=>WS_TYPE_ID),
       'uuid' => array(),
       ),
-    'Tells Piwigo a photo has been submitted to the Piwigo demo'
+    'Tells a photo has been submitted to the Piwigo demo'
     );
+
+  $service->addMethod(
+    'contrib.photo.removed',
+    'ctd_ws_photo_removed',
+    array(
+      'uuid' => array(),
+    ),
+    'Tells a photo has been removed from Piwigo demo'
+  );
 
   $service->addMethod(
     'contrib.photo.validated',
