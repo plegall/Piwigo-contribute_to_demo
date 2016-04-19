@@ -104,6 +104,8 @@ DELETE
 
 function ctd_ws_photo_validated($params, &$service)
 {
+  header("Access-Control-Allow-Origin: *");
+
   // register a new contribution
   global $conf;
 
@@ -142,6 +144,8 @@ SELECT
 
 function ctd_ws_photo_rejected($params, &$service)
 {
+  header("Access-Control-Allow-Origin: *");
+
   // register a new contribution
   global $conf;
 
