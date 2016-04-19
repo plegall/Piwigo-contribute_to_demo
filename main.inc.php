@@ -138,4 +138,13 @@ function ctd_ws_add_methods($arr)
       ),
     'Piwigo demo tells us our photo has been validated'
     );
+
+  $service->addMethod(
+    'contrib.photo.rejected',
+    'ctd_ws_photo_rejected',
+    array(
+      'uuid' => array(),
+      ),
+    'Piwigo demo tells us our photo has been rejected'
+    );
 }

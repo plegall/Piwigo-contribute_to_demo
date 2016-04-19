@@ -139,3 +139,41 @@ SELECT
 
   return true;
 }
+
+function ctd_ws_photo_rejected($params, &$service)
+{
+  // register a new contribution
+  global $conf;
+
+  // check the uuid
+  if (!preg_match(CTD_UUID_PATTERN, $params['uuid']))
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid uuid');
+  }
+
+  // does the uuid exists?
+  $query = '
+SELECT
+    *
+  FROM '.CTD_CONTRIB_TABLE.'
+  WHERE contrib_uuid = \''.$params['uuid'].'\'
+;';
+  $contribs = query2array($query);
+
+  if (count($contribs) == 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'unknow uuid');
+  }
+
+  single_update(
+    CTD_CONTRIB_TABLE,
+    array(
+      'state' => 'rejected',
+    ),
+    array(
+      'contrib_uuid' => $params['uuid'],
+    )
+  );
+
+  return true;
+}
