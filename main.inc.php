@@ -59,13 +59,8 @@ SELECT
 
     $template->assign(
       array(
-        'CTD_GALLERY_TITLE'  => $conf['gallery_title'],
         'CTD_DEMO_URL' => $conf['ctd_demo_url'],
         'CTD_ID' => $_GET['image_id'],
-        'CTD_FILE' => $image['file'],
-        'CTD_NAME' => $image['name'],
-        'CTD_URL' => get_absolute_root_url(),
-        'CTD_PATH' => $image['path'],
         )
       );
 
@@ -112,22 +107,21 @@ function ctd_ws_add_methods($arr)
   $service = &$arr[0];
 
   $service->addMethod(
-    'contrib.photo.submitted',
-    'ctd_ws_photo_submitted',
+    'contrib.photo.submit',
+    'ctd_ws_photo_submit',
     array(
       'image_id' => array('type'=>WS_TYPE_ID),
-      'uuid' => array(),
       ),
-    'Tells a photo has been submitted to the Piwigo demo'
+    'Submits a photo to Piwigo demo'
     );
 
   $service->addMethod(
-    'contrib.photo.removed',
-    'ctd_ws_photo_removed',
+    'contrib.photo.remove',
+    'ctd_ws_photo_remove',
     array(
-      'uuid' => array(),
+      'image_id' => array('type'=>WS_TYPE_ID),
     ),
-    'Tells a photo has been removed from Piwigo demo'
+    'Removes a photo from Piwigo demo'
   );
 
   $service->addMethod(

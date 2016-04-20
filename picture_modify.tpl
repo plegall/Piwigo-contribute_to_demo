@@ -11,13 +11,8 @@
 
 {strip}
 <li class="contrib"
-  data-gallery_title="{$CTD_GALLERY_TITLE|escape:html}"
   data-demo_url="{$CTD_DEMO_URL}"
   data-id="{$CTD_ID}"
-  data-file="{$CTD_FILE|escape:html}"
-  data-name="{$CTD_NAME|escape:html}"
-  data-url="{$CTD_URL}"
-  data-path="{$CTD_PATH}"
   data-uuid="{$CTD_UUID}"
   >
   <span class="ctd_submit"><a class="icon-upload" href="#">{'Contribute to demo'|@translate}</a></span>

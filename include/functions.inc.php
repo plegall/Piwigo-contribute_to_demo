@@ -26,16 +26,12 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
-function ctd_ws_photo_submitted($params, &$service)
+include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+function ctd_ws_photo_submit($params, &$service)
 {
   // register a new contribution
-  global $conf;
-
-  // check the uuid
-  if (!preg_match(CTD_UUID_PATTERN, $params['uuid']))
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid uuid');
-  }
+  global $conf, $logger;
 
   // has the photo already been "contributed"?
   $query = '
@@ -52,50 +48,110 @@ SELECT
     return new PwgError(WS_ERR_INVALID_PARAM, 'Image already contributed');
   }
 
+  $query = '
+SELECT
+    *
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$params['image_id'].'
+;';
+  $images = query2array($query);
+  $image = $images[0];
+
+  // calls the remote Piwigo
+  $server_url = $conf['ctd_demo_url'].'/ws.php';
+
+  $get_data = array(
+    'format' => 'json',
+    'method' => 'contrib_server.photo.submit',
+  );
+
+  $post_data = array(
+    'file' => $image['file'],
+    'name' => $image['name'],
+    'gallery_title' => $conf['gallery_title'],
+    'piwigo_url' => get_absolute_root_url(),
+    'piwigo_relative_path' => $image['path'],
+    'piwigo_image_id' => $params['image_id'],
+    );
+
+  if (!fetchRemote($server_url, $result, $get_data, $post_data))
+  {
+    return new PwgError(500, 'error calling remote Piwigo');
+  }
+
+  $data = json_decode($result, true);
+  if (!is_array($data))
+  {
+    return new PwgError(500, 'error parsing reply from remote Piwigo: '.$result);
+  }
+  
+  // check the uuid
+  if (!preg_match(CTD_UUID_PATTERN, $data['result']['uuid']))
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid uuid');
+  }
+
   single_insert(
     CTD_CONTRIB_TABLE,
     array(
       'image_idx' => $params['image_id'],
       'demo_url' => $conf['ctd_demo_url'],
-      'contrib_uuid' => $params['uuid'],
+      'contrib_uuid' => $data['result']['uuid'],
       'state' => 'submitted',
     )
   );
 
-  return true;
+  return array('uuid' => $data['result']['uuid']);
 }
 
-function ctd_ws_photo_removed($params, &$service)
+function ctd_ws_photo_remove($params, &$service)
 {
   // register a new contribution
   global $conf;
 
-  // check the uuid
-  if (!preg_match(CTD_UUID_PATTERN, $params['uuid']))
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid uuid');
-  }
-
-  // has the photo already been "contributed"?
   $query = '
 SELECT
     *
   FROM '.CTD_CONTRIB_TABLE.'
-  WHERE contrib_uuid = \''.$params['uuid'].'\'
+  WHERE image_idx = '.$params['image_id'].'
+    AND demo_url = \''.$conf['ctd_demo_url'].'\'
 ;';
   $contribs = query2array($query);
 
   if (count($contribs) == 0)
   {
-    return new PwgError(WS_ERR_INVALID_PARAM, 'unknown uuid');
+    return new PwgError(WS_ERR_INVALID_PARAM, 'not a contribution');
   }
 
   $contrib = $contribs[0];
 
+  // calls the remote Piwigo
+  $server_url = $conf['ctd_demo_url'].'/ws.php';
+
+  $get_data = array(
+    'format' => 'json',
+    'method' => 'contrib_server.photo.remove',
+  );
+
+  $post_data = array(
+    'uuid' => $contrib['contrib_uuid'],
+    );
+
+  if (!fetchRemote($server_url, $result, $get_data, $post_data))
+  {
+    return new PwgError(500, 'error calling remote Piwigo');
+  }
+
+  $data = json_decode($result, true);
+  if (!is_array($data))
+  {
+    return new PwgError(500, 'error parsing reply from remote Piwigo: '.$result);
+  }
+  
   $query = '
 DELETE
   FROM '.CTD_CONTRIB_TABLE.'
-  WHERE image_idx = '.$contrib['image_idx'].'
+  WHERE contrib_uuid = \''.$contrib['contrib_uuid'].'\'
 ;';
   pwg_query($query);
 
@@ -104,8 +160,6 @@ DELETE
 
 function ctd_ws_photo_validated($params, &$service)
 {
-  header("Access-Control-Allow-Origin: *");
-
   // register a new contribution
   global $conf;
 
@@ -144,8 +198,6 @@ SELECT
 
 function ctd_ws_photo_rejected($params, &$service)
 {
-  header("Access-Control-Allow-Origin: *");
-
   // register a new contribution
   global $conf;
 
