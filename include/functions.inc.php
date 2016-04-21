@@ -72,6 +72,7 @@ SELECT
     'piwigo_url' => get_absolute_root_url(),
     'piwigo_relative_path' => $image['path'],
     'piwigo_image_id' => $params['image_id'],
+    'file_content' => base64_encode(file_get_contents($image['path'])),
     );
 
   if (!fetchRemote($server_url, $result, $get_data, $post_data))
