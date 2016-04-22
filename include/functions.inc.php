@@ -31,7 +31,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 function ctd_ws_photo_submit($params, &$service)
 {
   // register a new contribution
-  global $conf, $logger;
+  global $conf, $logger, $user;
 
   // has the photo already been "contributed"?
   $query = '
@@ -73,6 +73,7 @@ SELECT
     'piwigo_relative_path' => $image['path'],
     'piwigo_image_id' => $params['image_id'],
     'file_content' => base64_encode(file_get_contents($image['path'])),
+    'email' => $user['email'],
     );
 
   if (!fetchRemote($server_url, $result, $get_data, $post_data))
