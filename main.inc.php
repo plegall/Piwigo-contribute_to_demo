@@ -61,6 +61,8 @@ SELECT
       array(
         'CTD_DEMO_URL' => $conf['ctd_demo_url'],
         'CTD_ID' => $_GET['image_id'],
+        'CTD_WIDTH' => $image['width'],
+        'CTD_HEIGHT' => $image['height'],
         )
       );
 

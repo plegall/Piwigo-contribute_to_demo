@@ -1,5 +1,10 @@
 jQuery().ready(function() {
   jQuery(".ctd_submit a").click(function(e){
+    if (jQuery(".contrib").data('width') < 2000 && jQuery(".contrib").data('height') < 2000) {
+      alert("photo too small, must be at least 2000 pixels");
+      return false;
+    }
+
     var $loading = jQuery(".contrib .loading");
     $loading.show();
 
