@@ -35,6 +35,22 @@ function ctd_init()
   }
 }
 
+add_event_handler('get_admin_plugin_menu_links', 'ctd_admin_menu');
+function ctd_admin_menu($menu)
+{
+  global $page;
+
+  array_push(
+    $menu,
+    array(
+      'NAME' => 'Contribute to Demo',
+      'URL'  => get_root_url().'admin.php?page=plugin-contribute_to_demo'
+      )
+    );
+
+  return $menu;
+}
+
 // +-----------------------------------------------------------------------+
 // | Edit Photo                                                            |
 // +-----------------------------------------------------------------------+
