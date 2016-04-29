@@ -18,7 +18,7 @@
   data-height="{$CTD_HEIGHT}"
   >
   <span class="ctd_submit"><a class="icon-upload" href="#">{'Contribute to demo'|@translate}</a></span>
-  <span class="ctd_pending">pending in demo</span>
+  <span class="ctd_pending">{'pending in demo'|@translate}</span>
   <span class="ctd_see"><a class="icon-ok-circled" href="" target="_blank">{'See in demo'|@translate}</a></span>
   <span class="ctd_remove"><a class="icon-cancel-circled" href="#">{'Remove from demo'|@translate}</a></span>
   <img class="loading" src="themes/default/images/ajax-loader-small.gif">

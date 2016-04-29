@@ -2,7 +2,7 @@
 /*
 Plugin Name: Contribute to Demo
 Version: auto
-Description: Send photo to Piwigo demo
+Description: Send photo and contribute to Piwigo demo
 Plugin URI: auto
 Author: plg
 Author URI: http://piwigo.org
@@ -49,6 +49,12 @@ function ctd_admin_menu($menu)
     );
 
   return $menu;
+}
+
+add_event_handler('loading_lang', 'ctd_loading_lang');
+function ctd_loading_lang()
+{
+  load_language('plugin.lang', CTD_PATH);
 }
 
 // +-----------------------------------------------------------------------+
