@@ -8,7 +8,7 @@ $lang['This link will provide visibility to your Piwigo from humans and search e
 $lang['Once duplicated in the demo, you give permission to the Piwigo demo for displaying your photo.'] = 'Une fois dupliquée, vous donnez la permission d\'afficher votre photo sur la démo Piwigo.';
 $lang['As a contributor, you keep the ownership of your photos.'] = 'En tant que contributeur, vous restez totalement propriétaire de votre photo.';
 $lang['At any time, you can remove your photo with a single and immediate action.'] = 'A n\'importe quel moment, vous pouvez supprimer votre photo de façon immédiate.';
-$lang['We hope you\'ll love the idea and decide to become a contributor yourself.'] = 'Nous espérons que vous aimerez l\'idée et que vous deviendrez l\'un de nos contribeurs.';
+$lang['We hope you\'ll love the idea and decide to become a contributor yourself.'] = 'Nous espérons que vous aimerez l\'idée et que vous deviendrez l\'un de nos contributeurs.';
 $lang['The Piwigo project needs you to create the most appealing demo.'] = 'Le projet Piwigo a besoin de vous pour créer la démo la plus attractive possible.';
 $lang['A nice demo will attract more users.'] = 'Une belle démo attirera davantage d\'utilisateurs.';
 $lang['More users means more improvements to make Piwigo even more awesome!'] = 'Davantage d\'utilisateurs signifie davantage d\'améliorations pour rendre Piwigo encore meilleur !';
