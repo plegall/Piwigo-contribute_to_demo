@@ -24,3 +24,6 @@ $lang['Contribute to demo'] = 'Συμβολή στο demo';
 $lang['At any time, you can remove your photo with a single and immediate action.'] = 'Ανά πάσα στιγμή, μπορείτε να αφαιρέσετε τις φωτογραφίες σας με μια ενιαία και άμεση δράση.';
 $lang['As a contributor, you keep the ownership of your photos.'] = 'Ως συνεργάτης, θα διατηρήσετε την ιδιοκτησία των φωτογραφιών σας.';
 $lang['A nice demo will attract more users.'] = 'Ένα ωραίο demo θα προσελκύσει περισσότερους χρήστες.';
+$lang['In the demo, on the page of the photo, you will see a "contributed by" info with a link to the contributor website.'] = 'Στο demo, στη σελίδα της φωτογραφίας, θα δείτε πληροφορίες "με τη συμβολή" με σύνδεσμο προς τον ιστότοπο του συνδρομητή.';
+$lang['How to contribute?'] = 'Πώς να συνεισφέρετε;';
+$lang['Find a nice photo in your Piwigo and edit it.'] = 'Βρείτε μια ωραία φωτογραφία στο Piwigo σας και επεξεργαστείτε την.';
