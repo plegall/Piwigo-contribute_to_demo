@@ -35,3 +35,4 @@ $lang['Photos in the Piwigo demo are coming from Piwigo users all over the world
 $lang['Once duplicated in the demo, you give permission to the Piwigo demo for displaying your photo.'] = 'Αφού αντιγράψετε στο demo, δίνετε άδεια στο Piwigo για την προβολή της φωτογραφίας σας.';
 $lang['On the edition page, click on the "contribute to demo" link.'] = 'Στη σελίδα έκδοσης, κάντε κλικ στο σύνδεσμο "contribute to demo".';
 $lang['More users means more improvements to make Piwigo even more awesome!'] = 'Περισσότεροι χρήστες σημαίνουν περισσότερες βελτιώσεις για να κάνουν το Piwigo ακόμα πιο εκπληκτικό!';
+$lang['The Piwigo project needs you to create the most appealing demo.'] = 'Το έργο Piwigo σας χρειάζεται για να δημιουργήσει το πιο ελκυστικό demo.';
